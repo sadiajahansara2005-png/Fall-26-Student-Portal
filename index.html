@@ -169,12 +169,17 @@
             height: auto;
             border-radius: 50%;
             box-shadow: var(--glass-shadow);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             transition: transform 0.3s ease;
         }
 
         .logo-container img:hover { transform: scale(1.05); }
         .logo-container h3 { font-size: 16px; color: var(--primary-color); font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        
+        /* New Sidebar Text Styles */
+        .university-location { font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
+        .department-name { font-size: 14px; font-weight: 700; color: var(--primary-color); background: rgba(11, 94, 86, 0.1); padding: 4px 8px; border-radius: 8px; display: inline-block;}
+        body.dark-mode .department-name { background: rgba(56, 189, 248, 0.1); }
 
         .nav-links { list-style: none; padding: 0 15px; }
         .nav-links li { margin-bottom: 10px; }
@@ -430,6 +435,12 @@
         .class-info p { font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; color: var(--text-main); }
         .class-info i { width: 16px; color: var(--primary-color); opacity: 0.8; }
 
+        /* Print Header Style (Hidden by default, shown in print) */
+        .print-header { display: none; text-align: center; margin-bottom: 30px; }
+        .print-header h1 { font-size: 24px; color: #000; margin-bottom: 5px; }
+        .print-header p { font-size: 16px; color: #444; margin-bottom: 8px; }
+        .print-header h3 { font-size: 20px; font-weight: 700; color: #000; text-decoration: underline; }
+
         /* =========================================
            MOBILE RESPONSIVE MEDIA QUERIES 
            ========================================= */
@@ -455,13 +466,17 @@
         }
 
         /* Print Specific Styles */
+        @page { size: A4; margin: 15mm; }
         @media print {
-            body { background: white; padding: 0; display: block; }
-            .bg-orbs, .sidebar, .top-bar, .controls, .routine-cards, .modal, .sidebar-overlay { display: none !important; }
+            body { background: white; padding: 0; display: block; color: #000; }
+            .bg-orbs, .sidebar, .top-bar, .controls, .routine-cards, .modal, .sidebar-overlay, .dashboard-cards, p[style*="text-muted"] { display: none !important; }
             .main-content { margin: 0; padding: 0; width: 100%; }
+            .print-header { display: block; }
             .section-container { box-shadow: none; padding: 0; border: none; backdrop-filter: none; background: transparent; }
-            th, td { border: 1px solid #000; }
+            th, td { border: 1px solid #000; padding: 10px; color: #000; }
+            th { color: #000; background-color: #f0f0f0; }
             .cr-badge { box-shadow: none; background: #ea580c; color: white; -webkit-print-color-adjust: exact; }
+            /* Hide sections that are not active during print if needed */
         }
     </style>
 </head>
@@ -482,6 +497,8 @@
         <div class="logo-container">
             <img src="logo.jpeg" alt="NEUB Logo">
             <h3>Northeast University</h3>
+            <p class="university-location">Sylhet, Bangladesh</p>
+            <p class="department-name">Department of CSE</p>
         </div>
         <ul class="nav-links">
             <li><button class="tab-btn active" onclick="switchTab('dashboard')"><i class="fas fa-home"></i> Dashboard</button></li>
@@ -507,6 +524,13 @@
         <!-- Dynamic Sections Container -->
         <div class="section-container glass-panel">
             
+            <!-- Print Header for A4 Page -->
+            <div class="print-header">
+                <h1>Northeast University Bangladesh</h1>
+                <p>Sylhet, Bangladesh</p>
+                <h3>Department of CSE</h3>
+            </div>
+
             <!-- 1. Dashboard Section -->
             <div id="dashboard" class="section active">
                 <h3 style="margin-bottom: 10px;">Welcome to Fall 2026 Portal</h3>
@@ -542,7 +566,7 @@
                     </div>
                 </div>
 
-                <p style="font-weight: 500;">Regular Students Directory - Total: <span id="totalStudents">16</span></p>
+                <p style="font-weight: 500; margin-bottom: 10px;">Regular Students Directory - Total: <span id="totalStudents">16</span></p>
 
                 <!-- Data Table -->
                 <div class="table-wrapper glass-panel">
@@ -690,7 +714,6 @@
             for (let i = 0; i < rows.length; i++) {
                 let row = [], cols = rows[i].querySelectorAll("td, th");
                 for (let j = 0; j < cols.length; j++) {
-                    // Extract text carefully to avoid copying HTML tags (like CR badge)
                     let text = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, " ").trim();
                     row.push('"' + text + '"');
                 }
