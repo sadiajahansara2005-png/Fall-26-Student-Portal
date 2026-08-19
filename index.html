@@ -49,6 +49,79 @@
         }
 
         /* =========================================
+           NEW Premium Preloader Styles
+           ========================================= */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--bg-base);
+            z-index: 99999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader-ring {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .loader-ring-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: #38bdf8; /* Cyan */
+            border-left-color: #38bdf8;
+            animation: spin 1.2s linear infinite;
+        }
+
+        .loader-ring-inner:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 10px;
+            left: 10px;
+            border-top-color: #ec4899; /* Pink */
+            border-left-color: #ec4899;
+            border-bottom-color: transparent;
+            border-right-color: transparent;
+            animation: spin-reverse 0.8s linear infinite;
+        }
+
+        .loader-ring i {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: #f8fafc;
+        }
+
+        .loading-text {
+            font-size: 15px;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 500;
+            animation: pulseText 1.5s ease-in-out infinite;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+        @keyframes pulseText { 
+            0%, 100% { opacity: 0.4; } 
+            50% { opacity: 1; text-shadow: 0 0 10px rgba(56, 189, 248, 0.5); } 
+        }
+
+        /* =========================================
            Background Animated Orbs
            ========================================= */
         .bg-orbs {
@@ -222,6 +295,7 @@
             flex-direction: column;
         }
 
+        /* Top Bar */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -250,23 +324,75 @@
         }
         
         .menu-toggle:hover { transform: scale(1.05); background: var(--btn-hover); }
-        .top-bar h2 { font-size: 18px; color: var(--primary-color); text-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 0; display: flex; align-items: center; gap: 8px;}
 
-        /* Notice Button on Top Right */
+        /* Headline Animation Styles */
+        .main-headline {
+            font-size: 26px; 
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(90deg, #38bdf8, #8b5cf6, #ec4899, #38bdf8);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShine 5s linear infinite;
+        }
+        
+        .main-headline i {
+            -webkit-text-fill-color: initial; 
+            color: var(--primary-color);
+            animation: bounceIcon 2s infinite ease-in-out;
+        }
+
+        @keyframes gradientShine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px) scale(1.1); text-shadow: 0 10px 20px rgba(56, 189, 248, 0.6); }
+        }
+
+        /* Notice Board Button Animation Updates */
         .notice-top-btn {
-            background: rgba(245, 158, 11, 0.15);
-            border-color: rgba(245, 158, 11, 0.3);
+            background: linear-gradient(90deg, rgba(245, 158, 11, 0.15), rgba(245, 158, 11, 0.35), rgba(245, 158, 11, 0.15));
+            background-size: 200% 100%;
+            border-color: rgba(245, 158, 11, 0.4);
             color: #f8fafc;
             padding: 10px 20px;
             flex-shrink: 0;
+            animation: buttonShine 3s infinite linear;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
         }
-        .notice-top-btn:hover {
-            background: rgba(245, 158, 11, 0.3);
-            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
-            border-color: rgba(245, 158, 11, 0.5);
+        
+        @keyframes buttonShine {
+            0% { background-position: 100% 0; }
+            100% { background-position: -100% 0; }
         }
-        .notice-top-btn i { color: #facc15 !important; }
 
+        .notice-top-btn:hover {
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.5);
+            border-color: rgba(245, 158, 11, 0.6);
+            transform: scale(1.05);
+        }
+        
+        /* Icon Shake Animation */
+        .notice-top-btn i { 
+            color: #facc15 !important; 
+            animation: gentleShake 3s infinite ease-in-out;
+        }
+
+        @keyframes gentleShake {
+            0%, 100% { transform: rotate(0deg); }
+            10%, 30%, 50% { transform: rotate(-10deg) scale(1.1); }
+            20%, 40% { transform: rotate(10deg) scale(1.1); }
+            60% { transform: rotate(0deg) scale(1); }
+        }
+
+        /* Glowing Dot for Notification */
         .notification-dot {
             width: 8px;
             height: 8px;
@@ -276,11 +402,11 @@
             top: 6px;
             right: 8px;
             box-shadow: 0 0 10px #ef4444;
-            animation: pulseDot 2s infinite;
+            animation: pulseDot 1.5s infinite;
         }
         @keyframes pulseDot {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
@@ -355,9 +481,7 @@
         .day-card h3 { font-size: 15px; font-weight: 600; color: var(--text-main); }
         .day-card:hover i { transform: scale(1.2); color: #fff; text-shadow: 0 0 15px var(--primary-color); }
 
-        /* =========================================
-           Materials & Outline Single Card
-           ========================================= */
+        /* Materials & Outline Single Card */
         .materials-center-card {
             width: 100%;
             max-width: 600px;
@@ -431,7 +555,6 @@
            100% RESPONSIVE QUERIES (Mobile & Tablet)
            ========================================= */
 
-        /* Tablets & iPads (Max 992px) */
         @media screen and (max-width: 992px) {
             .sidebar { transform: translateX(-100%); border-radius: 0; box-shadow: 5px 0 25px rgba(0,0,0,0.5); }
             .sidebar.active { transform: translateX(0); }
@@ -440,7 +563,6 @@
             .search-box { max-width: 100%; }
         }
 
-        /* Mobile Devices (Max 768px) - Accordion Table View Activation */
         @media screen and (max-width: 768px) {
             .top-bar { padding: 15px 20px; border-radius: 15px; flex-direction: column; align-items: stretch;}
             .top-bar-left { justify-content: space-between; margin-bottom: 10px; width: 100%;}
@@ -449,6 +571,8 @@
             
             .controls { flex-direction: column; align-items: stretch; gap: 10px;}
             .action-buttons { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+
+            .main-headline { font-size: 20px; }
 
             /* Accordion Table (Dropdown Style) */
             .accordion-table { 
@@ -461,7 +585,7 @@
                 display: block; width: 100%; 
             }
             .accordion-table table { min-width: 100%; }
-            .accordion-table thead tr { display: none; } /* Hide Headers Completely */
+            .accordion-table thead tr { display: none; }
             
             .accordion-table tr {
                 margin-bottom: 15px; 
@@ -469,7 +593,7 @@
                 backdrop-filter: blur(10px);
                 border-radius: 15px;
                 border: 1px solid rgba(255,255,255,0.1); 
-                padding: 15px 40px 15px 15px; /* Extra padding right for Chevron */
+                padding: 15px 40px 15px 15px; 
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
@@ -478,7 +602,6 @@
                 cursor: pointer;
             }
             
-            /* The Dropdown Chevron Icon */
             .accordion-table tr::after {
                 content: '\f078';
                 font-family: 'Font Awesome 6 Free';
@@ -494,7 +617,6 @@
                 transform: rotate(180deg);
             }
             
-            /* Inner data formatting */
             .accordion-table td {
                 display: flex; justify-content: space-between; align-items: center; text-align: right;
                 padding: 0; border: none !important; font-size: 13px;
@@ -505,12 +627,10 @@
                 text-align: left; margin-right: 10px; flex-shrink: 0;
             }
             
-            /* Hidden by default on Mobile */
             .accordion-table td.hidden-mobile {
                 display: none;
             }
             
-            /* Reveal when expanded */
             .accordion-table tr.expanded td.hidden-mobile {
                 display: flex;
                 animation: fadeIn 0.3s ease;
@@ -519,7 +639,6 @@
             }
         }
 
-        /* Extra Small Devices / Phones (Max 480px) */
         @media screen and (max-width: 480px) {
             body { font-size: 14px; }
             .main-content { padding: 10px; }
@@ -528,7 +647,6 @@
             
             .dashboard-cards { grid-template-columns: 1fr; }
             
-            /* Improved Mobile Routine Cards (List Style) */
             .routine-cards { grid-template-columns: 1fr; gap: 12px; }
             .day-card { 
                 display: flex; 
@@ -541,17 +659,15 @@
             .day-card i { margin-bottom: 0; margin-right: 15px; font-size: 24px; width: 30px; text-align: center; }
             .day-card h3 { font-size: 16px; margin: 0; }
             
-            /* Materials Card adjustment */
             .materials-center-card { padding: 30px 20px; margin: 10px auto; width: 100%; }
             .materials-center-card h3 { font-size: 20px; }
             
-            /* Stack Data vertically inside Table Cards for very small screens */
             .accordion-table td {
                 flex-direction: column; align-items: flex-start; text-align: left !important; gap: 4px;
             }
             .accordion-table td::before { 
                 width: 100%; border-bottom: 1px solid rgba(255,255,255,0.05); 
-                padding-bottom: 2px; margin-bottom: 2px; 
+                padding-bottom: 4px; margin-bottom: 2px; 
             }
             .accordion-table tr.expanded td.hidden-mobile {
                 padding-top: 12px;
@@ -565,7 +681,7 @@
         /* Print Mode */
         @media print {
             body { background: white; padding: 0; display: block; color: #000; overflow: visible; }
-            .bg-orbs, .sidebar, .top-bar, .controls, .routine-cards, .modal, .sidebar-overlay, .dashboard-cards, p[style*="text-muted"], .glass-btn, .materials-center-card { display: none !important; }
+            #preloader, .bg-orbs, .sidebar, .top-bar, .controls, .routine-cards, .modal, .sidebar-overlay, .dashboard-cards, p[style*="text-muted"], .glass-btn, .materials-center-card { display: none !important; }
             .main-content { margin: 0; padding: 0; width: 100%; display: block;}
             .print-header { display: block; }
             .section-container { box-shadow: none; padding: 0; border: none; backdrop-filter: none; background: transparent; transform: none !important; animation: none !important; }
@@ -582,6 +698,17 @@
     </style>
 </head>
 <body>
+
+    <!-- PRELOADER START -->
+    <div id="preloader">
+        <div class="loader-ring">
+            <div class="loader-ring-inner"></div>
+            <div class="loader-ring-inner"></div>
+            <i class="fas fa-graduation-cap"></i>
+        </div>
+        <div class="loading-text">Loading Portal</div>
+    </div>
+    <!-- PRELOADER END -->
 
     <!-- Animated Background Orbs -->
     <div class="bg-orbs">
@@ -619,11 +746,11 @@
         <header class="top-bar glass-panel">
             <div class="top-bar-left">
                 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-                <h2><i class="fas fa-graduation-cap"></i> Fall 2026 Portal</h2>
+                <h2 class="main-headline"><i class="fas fa-graduation-cap"></i> NEUB Fall 2026 Portal</h2>
             </div>
             
             <div class="top-bar-right" style="width: 100%; display: flex; justify-content: flex-end;">
-                <!-- Notice Board Button -->
+                <!-- Notice Board Button With Animation -->
                 <button class="glass-btn tab-btn notice-top-btn" onclick="switchTab('notices')">
                     <i class="fas fa-bullhorn"></i> Notice Board
                     <span class="notification-dot"></span>
@@ -661,7 +788,7 @@
                 </div>
             </div>
 
-            <!-- 2. Student List (UPDATED WITH ACCORDION CLASS) -->
+            <!-- 2. Student List -->
             <div id="students" class="section">
                 <div class="controls">
                     <div class="search-box">
@@ -676,7 +803,6 @@
 
                 <p style="font-weight: 500; margin-bottom: 10px;">Regular Students Directory - Total: <span id="totalStudents">17</span></p>
 
-                <!-- Added .accordion-table class -->
                 <div class="table-wrapper accordion-table glass-panel">
                     <table id="studentTable">
                         <thead>
@@ -689,7 +815,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- hidden-mobile class applied to Serial, Phone, and Email -->
                             <tr><td data-label="Serial" class="hidden-mobile">1</td><td data-label="ID">05626205101011</td><td data-label="Name">Mahfuja Parvin</td><td data-label="Phone Number" class="hidden-mobile">01616403165</td><td data-label="Gmail" class="hidden-mobile">mahfujaparvin71@gmail.com</td></tr>
                             <tr><td data-label="Serial" class="hidden-mobile">2</td><td data-label="ID">05626205101012</td><td data-label="Name">Arpa Rani Pal</td><td data-label="Phone Number" class="hidden-mobile">01739606117</td><td data-label="Gmail" class="hidden-mobile">paularpa41@gmail.com</td></tr>
                             <tr><td data-label="Serial" class="hidden-mobile">3</td><td data-label="ID">05626205101008</td><td data-label="Name">Anima Rani Nath</td><td data-label="Phone Number" class="hidden-mobile">01716759704</td><td data-label="Gmail" class="hidden-mobile">animaraninath50@gmail.com</td></tr>
@@ -746,7 +871,7 @@
                 </div>
             </div>
 
-            <!-- 5. Study Materials (UPDATED: Single Card & Popup) -->
+            <!-- 5. Study Materials (Single Card & Popup) -->
             <div id="materials" class="section">
                 <div style="margin-bottom: 20px;">
                     <h3 style="margin-bottom: 5px;">📂 Study Materials</h3>
@@ -800,7 +925,7 @@
                 </div>
             </div>
 
-            <!-- 8. Blood Bank (UPDATED WITH ACCORDION CLASS) -->
+            <!-- 8. Blood Bank (ACCORDION CLASS ADDED) -->
             <div id="bloodBank" class="section">
                 <div class="controls">
                     <div class="search-box">
@@ -811,7 +936,6 @@
                 <h3 style="margin-bottom: 10px;">🩸 Emergency Blood Bank</h3>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">Find blood donors within our batch. (Tap name on mobile to see number)</p>
 
-                <!-- Added .accordion-table class -->
                 <div class="table-wrapper accordion-table glass-panel">
                     <table id="bloodTable">
                         <thead>
@@ -822,7 +946,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- hidden-mobile class applied to Phone Number -->
                             <tr><td data-label="Name" style="text-align: left;">MD Shariful Hoque Minhaj</td><td data-label="Blood Group"><span class="blood-badge">B+</span></td><td data-label="Phone Number" class="hidden-mobile">+8801310537278</td></tr>
                             <tr><td data-label="Name" style="text-align: left;">Sadia Zahan jumu</td><td data-label="Blood Group"><span class="blood-badge">O+</span></td><td data-label="Phone Number" class="hidden-mobile">01826506076</td></tr>
                             <tr><td data-label="Name" style="text-align: left;">Mahfuja Parvin</td><td data-label="Blood Group"><span class="blood-badge">AB+</span></td><td data-label="Phone Number" class="hidden-mobile">01616403165</td></tr>
@@ -873,6 +996,15 @@
     </div>
 
     <script>
+        // Preloader Logic
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const preloader = document.getElementById('preloader');
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+            }, 1200); // 1.2 second delay for nice presentation
+        });
+
         // Toggle Sidebar for Mobile
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('active');
@@ -955,9 +1087,7 @@
         // Accordion Table Logic for Mobile
         document.querySelectorAll('.accordion-table tbody tr').forEach(tr => {
             tr.addEventListener('click', function(e) {
-                // Ignore clicks if a button or link is clicked inside the row
                 if(e.target.tagName === 'A' || e.target.tagName === 'BUTTON' || e.target.closest('a') || e.target.closest('button')) return;
-                
                 if(window.innerWidth <= 768) {
                     this.classList.toggle('expanded');
                 }
