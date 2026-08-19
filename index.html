@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NEUB Fall 2026 - Student Portal</title>
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,6 +36,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -43,7 +44,8 @@
             min-height: 100vh;
             color: var(--text-main);
             display: flex;
-            overflow-x: hidden; /* Prevents unwanted horizontal scrolling */
+            overflow-x: hidden;
+            width: 100%;
         }
 
         /* =========================================
@@ -81,8 +83,7 @@
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-                        box-shadow 0.4s ease, border-color 0.4s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
         /* Universal Glass Button Class */
@@ -97,32 +98,33 @@
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
             text-decoration: none;
+            white-space: nowrap;
         }
 
         .glass-btn i { color: var(--primary-color); font-size: 16px; transition: transform 0.3s ease; }
 
         .glass-btn:hover {
             background: var(--btn-hover);
-            transform: translateY(-4px) scale(1.03);
-            box-shadow: 0 10px 25px var(--primary-glow);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 5px 15px var(--primary-glow);
             border-color: rgba(255, 255, 255, 0.3);
         }
         
         .glass-btn:hover i { transform: scale(1.2) rotate(5deg); }
 
         /* Page Load Animations */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.98); } 100% { opacity: 1; transform: scale(1); } }
         @keyframes modalFadeIn { from { opacity: 0; backdrop-filter: blur(0px); } to { opacity: 1; backdrop-filter: blur(10px); } }
-        @keyframes modalSlideUp { from { opacity: 0; transform: translateY(60px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes modalSlideUp { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
 
         /* Sidebar Styles */
         .sidebar {
@@ -136,9 +138,10 @@
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 0 20px 20px 0;
             overflow-y: auto;
+            left: 0;
         }
 
-        .sidebar::-webkit-scrollbar { width: 5px; }
+        .sidebar::-webkit-scrollbar { width: 4px; }
         .sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
         .logo-container {
@@ -149,19 +152,19 @@
         }
 
         .logo-container img {
-            width: 90px;
+            width: 80px;
             height: auto;
             border-radius: 50%;
             box-shadow: 0 0 15px rgba(255,255,255,0.1);
             margin-bottom: 10px;
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.5s ease;
         }
 
-        .logo-container img:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 25px var(--primary-glow); }
+        .logo-container img:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 20px var(--primary-glow); }
         .logo-container h3 { font-size: 16px; color: var(--primary-color); font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         
         .university-location { font-size: 12px; color: var(--text-muted); margin-bottom: 5px; }
-        .department-name { font-size: 14px; font-weight: 700; color: var(--primary-color); background: rgba(56, 189, 248, 0.1); padding: 4px 8px; border-radius: 8px; display: inline-block;}
+        .department-name { font-size: 13px; font-weight: 700; color: var(--primary-color); background: rgba(56, 189, 248, 0.1); padding: 4px 8px; border-radius: 8px; display: inline-block;}
 
         .nav-links { list-style: none; padding: 0 15px; }
         .nav-links li { margin-bottom: 5px; }
@@ -177,7 +180,7 @@
             font-weight: 500;
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -189,8 +192,8 @@
             background: var(--btn-bg);
             backdrop-filter: var(--glass-blur);
             border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            transform: translateX(8px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transform: translateX(5px);
         }
 
         .nav-links button:hover i, .nav-links button.active i { color: var(--primary-color); transform: scale(1.2); }
@@ -199,37 +202,39 @@
         .sidebar-overlay {
             display: none;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
             z-index: 90;
             backdrop-filter: blur(5px);
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
         }
         .sidebar-overlay.active { display: block; opacity: 1; }
 
         /* Main Content Container */
         .main-content {
             margin-left: 260px;
-            padding: 30px;
+            padding: 20px 30px;
             width: calc(100% - 260px);
             min-height: 100vh;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
+            padding: 15px 25px;
             border-radius: 20px;
             margin-bottom: 25px;
-            animation: fadeIn 0.6s ease forwards;
-            gap: 10px;
+            animation: fadeIn 0.5s ease forwards;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
-        .top-bar-left { display: flex; align-items: center; gap: 15px; }
+        .top-bar-left { display: flex; align-items: center; gap: 15px; flex: 1; min-width: 200px; }
 
         .menu-toggle {
             display: none;
@@ -244,8 +249,8 @@
             transition: all 0.3s ease;
         }
         
-        .menu-toggle:hover { transform: scale(1.1); background: var(--btn-hover); }
-        .top-bar h2 { font-size: 20px; color: var(--primary-color); text-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 0; }
+        .menu-toggle:hover { transform: scale(1.05); background: var(--btn-hover); }
+        .top-bar h2 { font-size: 18px; color: var(--primary-color); text-shadow: 0 2px 5px rgba(0,0,0,0.2); margin: 0; display: flex; align-items: center; gap: 8px;}
 
         /* Notice Button on Top Right */
         .notice-top-btn {
@@ -253,6 +258,7 @@
             border-color: rgba(245, 158, 11, 0.3);
             color: #f8fafc;
             padding: 10px 20px;
+            flex-shrink: 0;
         }
         .notice-top-btn:hover {
             background: rgba(245, 158, 11, 0.3);
@@ -261,7 +267,6 @@
         }
         .notice-top-btn i { color: #facc15 !important; }
 
-        /* Glowing Dot for Notification */
         .notification-dot {
             width: 8px;
             height: 8px;
@@ -283,197 +288,262 @@
         .section-container {
             padding: 30px;
             border-radius: 20px;
-            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            animation-delay: 0.1s;
+            animation: popIn 0.4s ease forwards;
+            flex-grow: 1;
+            width: 100%;
         }
 
-        .section { display: none; animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .section { display: none; animation: fadeIn 0.4s ease; }
         .section.active { display: block; }
 
         /* Controls Area */
-        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
+        .controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
 
-        .search-box { position: relative; flex-grow: 1; max-width: 400px; }
+        .search-box { position: relative; flex-grow: 1; max-width: 400px; width: 100%; }
         .search-box input {
             width: 100%; padding: 12px 20px 12px 45px; border: 1px solid var(--btn-border);
-            border-radius: 30px; font-size: 14px; background-color: var(--btn-bg);
-            backdrop-filter: var(--glass-blur); color: var(--text-main); outline: none; transition: all 0.3s ease;
+            border-radius: 30px; font-size: 16px; 
+            background-color: var(--btn-bg); backdrop-filter: var(--glass-blur); 
+            color: var(--text-main); outline: none; transition: all 0.3s ease;
         }
-        .search-box input:focus { border-color: var(--primary-color); background-color: var(--btn-hover); box-shadow: 0 0 15px var(--primary-glow); transform: scale(1.02); }
+        .search-box input:focus { border-color: var(--primary-color); background-color: var(--btn-hover); box-shadow: 0 0 15px var(--primary-glow); }
         .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); transition: 0.3s; }
         .search-box input:focus + i { color: var(--primary-color); }
 
         .action-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
 
-        /* Table Styles (Desktop) */
-        .table-wrapper { overflow-x: auto; border-radius: 15px; margin-top: 20px; -webkit-overflow-scrolling: touch; }
+        /* =========================================
+           TABLES - DESKTOP LAYOUT
+           ========================================= */
+        .table-wrapper { 
+            width: 100%;
+            overflow-x: auto; 
+            border-radius: 15px; 
+            margin-top: 15px; 
+            -webkit-overflow-scrolling: touch; 
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+        }
         table { width: 100%; border-collapse: collapse; min-width: 600px; }
-        thead { background-color: rgba(255, 255, 255, 0.05); }
-        th, td { padding: 15px; text-align: center; border-bottom: 1px solid var(--glass-border); font-size: 14px; vertical-align: middle; }
+        thead { background-color: rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th, td { padding: 15px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; vertical-align: middle; }
         th { font-weight: 600; color: var(--primary-color); }
-
-        tbody tr { transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
-        tbody tr:hover { background-color: rgba(255, 255, 255, 0.08); transform: scale(1.01) translateX(5px); box-shadow: -5px 5px 15px rgba(0,0,0,0.3); border-radius: 10px; }
+        tbody tr { transition: background-color 0.2s ease; }
+        tbody tr:hover { background-color: rgba(255, 255, 255, 0.05); }
 
         .cr-badge {
             background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; font-size: 11px; font-weight: 700;
             padding: 3px 8px; border-radius: 12px; margin-left: 8px; box-shadow: 0 4px 10px rgba(234, 88, 12, 0.3);
-            text-transform: uppercase; letter-spacing: 0.5px; display: inline-block; transition: transform 0.3s ease;
+            text-transform: uppercase; letter-spacing: 0.5px; display: inline-block;
         }
-        tbody tr:hover .cr-badge { transform: scale(1.1) rotate(-3deg); }
 
         .blood-badge {
             background: rgba(225, 29, 72, 0.2); color: #fb7185; border: 1px solid rgba(225, 29, 72, 0.5);
             font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 10px; display: inline-block;
         }
 
-        /* Dashboard Cards */
-        .dashboard-cards { display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
-        .card, .day-card { flex: 1 1 200px; padding: 25px 20px; border-radius: 20px; text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
-        .card:hover, .day-card:hover { transform: translateY(-8px) scale(1.03); background: rgba(255,255,255,0.1); border-color: var(--primary-color); box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,255,255,0.05); }
-        .card h3 { color: var(--primary-color); font-size: 32px; margin-bottom: 5px; text-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.3s; }
-        .card:hover h3 { transform: scale(1.1); }
+        /* Perfect Grid for Cards */
+        .dashboard-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card, .day-card { padding: 25px 20px; border-radius: 20px; text-align: center; transition: all 0.3s ease; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center;}
+        .card:hover, .day-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.1); border-color: var(--primary-color); box-shadow: 0 10px 25px rgba(0,0,0,0.3); }
+        .card h3 { color: var(--primary-color); font-size: 28px; margin-bottom: 5px; text-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.3s; }
         .card p { color: var(--text-muted); font-size: 14px; font-weight: 500; }
 
-        /* ====== Grid Cards ====== */
-        .routine-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 25px; }
-        .day-card i { font-size: 28px; color: var(--primary-color); margin-bottom: 12px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .day-card h3 { font-size: 16px; font-weight: 600; color: var(--text-main); }
-        .day-card:hover i { transform: scale(1.3) translateY(-5px); color: #fff; text-shadow: 0 0 15px var(--primary-color); }
+        .routine-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        .day-card i { font-size: 28px; color: var(--primary-color); margin-bottom: 12px; transition: 0.3s; }
+        .day-card h3 { font-size: 15px; font-weight: 600; color: var(--text-main); }
+        .day-card:hover i { transform: scale(1.2); color: #fff; text-shadow: 0 0 15px var(--primary-color); }
 
-        /* Material Link Cards */
-        .materials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
-        .material-card { display: flex; align-items: center; justify-content: space-between; text-align: left; padding: 20px; }
-        .material-info { display: flex; align-items: center; gap: 15px; }
-        .material-info i { font-size: 30px; }
-        .material-info h3 { font-size: 16px; color: var(--text-main); margin-bottom: 4px; }
-        .material-info p { font-size: 12px; color: var(--text-muted); margin: 0; line-height: 1.4; }
+        /* =========================================
+           Materials Section (Centered Single Card)
+           ========================================= */
+        .materials-center-card {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto 30px auto;
+            padding: 40px 30px;
+            text-align: center;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.4s ease;
+            box-sizing: border-box;
+        }
+        .materials-center-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border-color: var(--primary-color);
+        }
+        .materials-center-card i.main-icon {
+            font-size: 55px;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px var(--primary-glow);
+        }
+        .materials-center-card h3 {
+            font-size: 24px;
+            color: var(--text-main);
+        }
+        .materials-center-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
 
         /* Modal Styles */
         .modal {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px);
-            animation: modalFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; justify-content: center; align-items: center;
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100vw; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
+            animation: modalFadeIn 0.3s ease forwards; justify-content: center; align-items: center;
             padding: 15px;
         }
         .modal-content {
-            border-radius: 20px; width: 100%; max-width: 500px; padding: 0;
-            animation: modalSlideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            border-radius: 20px; width: 100%; max-width: 500px; padding: 0; margin: auto;
+            animation: modalSlideUp 0.4s ease forwards; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            max-height: 90vh; display: flex; flex-direction: column; background: var(--bg-base);
+            position: relative;
         }
-        .modal-header { background: rgba(255, 255, 255, 0.05); padding: 20px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); }
-        .modal-header h2 { font-size: 20px; font-weight: 600; color: var(--primary-color); }
-        .close-btn { color: var(--text-muted); font-size: 28px; font-weight: bold; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .close-btn:hover { color: #ef4444; transform: scale(1.3) rotate(90deg); }
-        .modal-body { padding: 25px; max-height: 70vh; overflow-y: auto; }
-        .modal-body::-webkit-scrollbar { width: 6px; }
-        .modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        .modal-header { background: rgba(255, 255, 255, 0.05); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); flex-shrink: 0;}
+        .modal-header h2 { font-size: 18px; font-weight: 600; color: var(--primary-color); }
+        .close-btn { color: var(--text-muted); font-size: 28px; font-weight: bold; cursor: pointer; transition: 0.3s; line-height: 1;}
+        .close-btn:hover { color: #ef4444; }
+        .modal-body { padding: 20px; overflow-y: auto; flex-grow: 1; }
+        .modal-body::-webkit-scrollbar { width: 5px; }
+        .modal-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
 
         /* Class Block */
         .class-block {
-            background: var(--btn-bg); border-left: 4px solid var(--primary-color); padding: 20px; border-radius: 12px; margin-bottom: 15px; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background: rgba(255,255,255,0.03); border-left: 4px solid var(--primary-color); padding: 15px; border-radius: 12px; margin-bottom: 15px; transition: 0.3s;
             border-top: 1px solid var(--glass-border); border-right: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);
         }
-        .class-block:hover { transform: translateX(8px) scale(1.02); background: var(--btn-hover); box-shadow: 0 10px 20px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.2); }
-        .class-block h4 { font-size: 16px; color: var(--primary-color); margin-bottom: 8px; font-weight: 600; }
-        .class-info p { font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; color: var(--text-main); }
-        .class-info i { width: 16px; color: var(--primary-color); opacity: 0.8; transition: 0.3s; }
-        .class-block:hover i { transform: scale(1.2); opacity: 1; }
+        .class-block:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
+        .class-block h4 { font-size: 15px; color: var(--primary-color); margin-bottom: 8px; font-weight: 600; }
+        .class-info p { font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; color: var(--text-main); word-break: break-word;}
+        .class-info i { width: 16px; color: var(--primary-color); opacity: 0.8; text-align: center;}
 
-        /* Print Header Style */
         .print-header { display: none; text-align: center; margin-bottom: 30px; }
-        .print-header h1 { font-size: 24px; color: #000; margin-bottom: 5px; }
 
         /* =========================================
-           100% MOBILE RESPONSIVE QUERIES
+           100% RESPONSIVE QUERIES (Mobile & Tablet)
            ========================================= */
+
+        /* Tablets & iPads (Max 992px) */
         @media screen and (max-width: 992px) {
-            .sidebar { transform: translateX(-100%); border-radius: 0; }
+            .sidebar { transform: translateX(-100%); border-radius: 0; box-shadow: 5px 0 25px rgba(0,0,0,0.5); }
             .sidebar.active { transform: translateX(0); }
             .main-content { margin-left: 0; width: 100%; padding: 15px; }
             .menu-toggle { display: block; }
-            .top-bar { padding: 15px; border-radius: 15px; }
-            .section-container { padding: 20px; border-radius: 15px; }
             .search-box { max-width: 100%; }
         }
 
-        /* Responsive Table Card View specifically for smaller screens */
+        /* Mobile Devices (Max 768px) */
         @media screen and (max-width: 768px) {
-            .table-wrapper table, 
-            .table-wrapper thead, 
-            .table-wrapper tbody, 
-            .table-wrapper th, 
-            .table-wrapper td, 
-            .table-wrapper tr {
-                display: block;
-                width: 100%;
-            }
+            .top-bar { padding: 15px 20px; border-radius: 15px; flex-direction: column; align-items: stretch;}
+            .top-bar-left { justify-content: space-between; margin-bottom: 10px; width: 100%;}
+            .notice-top-btn { width: 100%; }
+            .section-container { padding: 20px; border-radius: 15px; background: transparent; box-shadow: none; border: none;}
             
-            .table-wrapper thead tr {
-                display: none; /* Hide headers on mobile */
+            .controls { flex-direction: column; align-items: stretch; gap: 10px;}
+            .action-buttons { width: 100%; display: grid; grid-template-columns: 1fr 1fr; }
+            
+            /* Ultimate Mobile Table Converter */
+            .table-wrapper { 
+                background: transparent !important; 
+                border: none !important; 
+                box-shadow: none !important; 
+                overflow: visible !important; 
             }
+            .table-wrapper table, .table-wrapper thead, .table-wrapper tbody, .table-wrapper th, .table-wrapper td, .table-wrapper tr {
+                display: block; width: 100%; 
+            }
+            .table-wrapper table { min-width: 100%; }
+            .table-wrapper thead tr { display: none; } /* Hide Headers Completely */
             
             .table-wrapper tr {
-                margin-bottom: 15px;
-                background: rgba(255, 255, 255, 0.02);
-                border-radius: 12px;
-                border: 1px solid var(--glass-border);
-                padding: 5px;
-                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                margin-bottom: 15px; 
+                background: rgba(15, 23, 42, 0.6); 
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                border: 1px solid rgba(255,255,255,0.1); 
+                padding: 15px; 
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             }
             
             .table-wrapper td {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                text-align: right;
-                padding: 12px 10px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                font-size: 13px;
-                word-break: break-word; /* Fixes layout breaking due to long texts/emails */
+                display: flex; justify-content: space-between; align-items: center; text-align: right;
+                padding: 0; border: none !important; font-size: 13px;
+                word-break: break-word; 
             }
             
-            .table-wrapper td:last-child {
-                border-bottom: none;
-            }
+            .table-wrapper td[style*="text-align: left"] { text-align: right !important; }
             
             .table-wrapper td::before {
-                content: attr(data-label);
-                font-weight: 600;
-                color: var(--primary-color);
-                margin-right: 10px;
-                text-align: left;
-                flex-shrink: 0; /* Prevents the label from squishing */
-            }
-
-            .table-wrapper td[style*="text-align: left"] {
-                text-align: right !important; /* Force right align data on mobile */
+                content: attr(data-label); font-weight: 600; color: var(--primary-color);
+                text-align: left; margin-right: 10px; flex-shrink: 0;
             }
         }
 
-        /* Very small mobile devices */
+        /* Extra Small Devices / Phones (Max 480px) */
         @media screen and (max-width: 480px) {
-            .top-bar-left h2 { font-size: 16px; }
-            .day-card { padding: 20px 10px; }
-            .action-buttons { flex-direction: column; width: 100%; }
-            .action-buttons button { width: 100%; justify-content: center; }
-            .notice-top-btn { padding: 8px 12px; font-size: 12px; }
-            .notice-top-btn span.notification-dot { top: 3px; right: 5px; }
-            .material-card { flex-direction: column; gap: 15px; text-align: center; }
-            .material-info { flex-direction: column; }
-            .controls { flex-direction: column; align-items: stretch; }
+            body { font-size: 14px; }
+            .main-content { padding: 10px; }
+            .top-bar { padding: 15px; margin-bottom: 15px; }
+            .section-container { padding: 10px; border-radius: 15px; }
+            
+            .dashboard-cards { grid-template-columns: 1fr; }
+            
+            /* Improved Mobile Routine Cards (List Style) */
+            .routine-cards { grid-template-columns: 1fr; gap: 12px; }
+            .day-card { 
+                display: flex; 
+                flex-direction: row; 
+                align-items: center; 
+                justify-content: flex-start; 
+                padding: 15px 20px; 
+                text-align: left; 
+            }
+            .day-card i { margin-bottom: 0; margin-right: 15px; font-size: 24px; width: 30px; text-align: center; }
+            .day-card h3 { font-size: 16px; margin: 0; }
+            
+            /* Materials & Syllabus Card adjustment */
+            .materials-center-card { padding: 30px 20px; margin: 10px auto; width: 100%; }
+            .materials-center-card h3 { font-size: 20px; }
+            
+            /* Stack Data inside Table Cards */
+            .table-wrapper td {
+                flex-direction: column; align-items: flex-start; text-align: left !important; gap: 6px;
+            }
+            .table-wrapper td::before { 
+                width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); 
+                padding-bottom: 4px; margin-bottom: 2px; 
+            }
+            .table-wrapper td .glass-btn { width: 100%; justify-content: center; }
+            
+            .modal-content { width: calc(100% - 20px); }
+            .action-buttons { grid-template-columns: 1fr; } /* Stack excel/print buttons vertically */
         }
 
+        /* Print Mode */
         @media print {
-            body { background: white; padding: 0; display: block; color: #000; }
-            .bg-orbs, .sidebar, .top-bar, .controls, .routine-cards, .modal, .sidebar-overlay, .dashboard-cards, p[style*="text-muted"] { display: none !important; }
-            .main-content { margin: 0; padding: 0; width: 100%; }
+            body { background: white; padding: 0; display: block; color: #000; overflow: visible; }
+            .bg-orbs, .sidebar, .top-bar, .controls, .routine-cards, .modal, .sidebar-overlay, .dashboard-cards, p[style*="text-muted"], .glass-btn, .materials-center-card { display: none !important; }
+            .main-content { margin: 0; padding: 0; width: 100%; display: block;}
             .print-header { display: block; }
             .section-container { box-shadow: none; padding: 0; border: none; backdrop-filter: none; background: transparent; transform: none !important; animation: none !important; }
             th, td { border: 1px solid #000; padding: 10px; color: #000; display: table-cell !important; text-align: left !important; }
-            th { color: #000; background-color: #f0f0f0; }
-            tr { display: table-row !important; }
+            th { color: #000; background-color: #f0f0f0; display: table-cell !important; }
+            tr { display: table-row !important; margin: 0 !important; background: transparent !important; box-shadow: none !important;}
             td::before { display: none !important; }
-            .cr-badge, .blood-badge { box-shadow: none; background: #ea580c; color: white; -webkit-print-color-adjust: exact; border: none; }
+            table { display: table !important; width: 100% !important; }
+            thead { display: table-header-group !important; }
+            tbody { display: table-row-group !important; }
         }
     </style>
 </head>
@@ -511,15 +581,15 @@
     <!-- Main Content -->
     <main class="main-content">
         
-        <!-- Top Bar with Notice Button -->
+        <!-- Top Bar -->
         <header class="top-bar glass-panel">
             <div class="top-bar-left">
                 <button class="menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
                 <h2><i class="fas fa-graduation-cap"></i> Fall 2026 Portal</h2>
             </div>
             
-            <div class="top-bar-right">
-                <!-- Notice Board Button placed right beside Fall 2026 -->
+            <div class="top-bar-right" style="width: 100%; display: flex; justify-content: flex-end;">
+                <!-- Notice Board Button -->
                 <button class="glass-btn tab-btn notice-top-btn" onclick="switchTab('notices')">
                     <i class="fas fa-bullhorn"></i> Notice Board
                     <span class="notification-dot"></span>
@@ -572,7 +642,7 @@
 
                 <p style="font-weight: 500; margin-bottom: 10px;">Regular Students Directory - Total: <span id="totalStudents">17</span></p>
 
-                <div class="table-wrapper glass-panel">
+                <div class="table-wrapper">
                     <table id="studentTable">
                         <thead>
                             <tr>
@@ -584,7 +654,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Added data-label for Mobile Responsiveness -->
                             <tr><td data-label="Serial">1</td><td data-label="ID">05626205101011</td><td data-label="Name">Mahfuja Parvin</td><td data-label="Phone Number">01616403165</td><td data-label="Gmail">mahfujaparvin71@gmail.com</td></tr>
                             <tr><td data-label="Serial">2</td><td data-label="ID">05626205101012</td><td data-label="Name">Arpa Rani Pal</td><td data-label="Phone Number">01739606117</td><td data-label="Gmail">paularpa41@gmail.com</td></tr>
                             <tr><td data-label="Serial">3</td><td data-label="ID">05626205101008</td><td data-label="Name">Anima Rani Nath</td><td data-label="Phone Number">01716759704</td><td data-label="Gmail">animaraninath50@gmail.com</td></tr>
@@ -623,143 +692,45 @@
                 </div>
             </div>
 
-            <!-- 4. Course Outline (REMOVED CREDITS COLUMN) -->
+            <!-- 4. Course Outline (UPDATED: Table Removed, Single Folder Card Added) -->
             <div id="syllabus" class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 10px;">
-                    <h3 style="margin: 0;">📚 Course Outline</h3>
-                    <!-- MAIN FOLDER LINK -->
-                    <a href="https://drive.google.com/drive/folders/1B95zymX8Z_hI79U683Xj62kt1pnmZz49?usp=drive_link" target="_blank" class="glass-btn" style="text-decoration: none;">
-                        <i class="fas fa-folder-open" style="color: #facc15;"></i> Main Folder
-                    </a>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 5px;">📚 Course Outline</h3>
+                    <p style="color: var(--text-muted);">Course Resources and Drive Links.</p>
                 </div>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">1st Year 1st Semester Subject List & Drive Links.</p>
                 
-                <div class="table-wrapper glass-panel">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th style="text-align: left;">Course Name</th>
-                                <!-- Credits column header removed here -->
-                                <th>Drive Link</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Added data-label for Mobile Responsiveness & Removed Credits -->
-                            <tr>
-                                <td data-label="Course Name" style="text-align: left; font-weight: 500;">Discrete Mathematics</td>
-                                <td data-label="Drive Link">
-                                    <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn" style="padding: 6px 15px; font-size: 12px;">
-                                        <i class="fab fa-google-drive" style="color: #34a853;"></i> View
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Course Name" style="text-align: left; font-weight: 500;">Bangladesh Studies</td>
-                                <td data-label="Drive Link">
-                                    <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn" style="padding: 6px 15px; font-size: 12px;">
-                                        <i class="fab fa-google-drive" style="color: #34a853;"></i> View
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Course Name" style="text-align: left; font-weight: 500;">Fundamentals of Physics</td>
-                                <td data-label="Drive Link">
-                                    <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn" style="padding: 6px 15px; font-size: 12px;">
-                                        <i class="fab fa-google-drive" style="color: #34a853;"></i> View
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Course Name" style="text-align: left; font-weight: 500;">Calculus</td>
-                                <td data-label="Drive Link">
-                                    <!-- CALCULUS LINK -->
-                                    <a href="https://drive.google.com/file/d/10VVgevCb9Mf8J47KE853oG4GyVZlXJtF/view?usp=drive_link" target="_blank" class="glass-btn" style="padding: 6px 15px; font-size: 12px;">
-                                        <i class="fab fa-google-drive" style="color: #34a853;"></i> View
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Course Name" style="text-align: left; font-weight: 500;">Principles of Economics</td>
-                                <td data-label="Drive Link">
-                                    <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn" style="padding: 6px 15px; font-size: 12px;">
-                                        <i class="fab fa-google-drive" style="color: #34a853;"></i> View
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Course Name" style="text-align: left; font-weight: 500;">Advanced Functional English</td>
-                                <td data-label="Drive Link">
-                                    <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn" style="padding: 6px 15px; font-size: 12px;">
-                                        <i class="fab fa-google-drive" style="color: #34a853;"></i> View
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- Centralized Beautiful Card for Course Outline -->
+                <div class="materials-center-card glass-panel">
+                    <i class="fas fa-folder main-icon"></i>
+                    <h3>Course Resources Folder</h3>
+                    <p>Access your complete course outlines, syllabus breakdowns, and related documents directly from our central drive.</p>
+                    <a href="https://drive.google.com/drive/folders/1oW6agzrFqMskX9Qsb0dBrOaf_WlwRidl?usp=drive_link" target="_blank" class="glass-btn" style="padding: 12px 30px; font-size: 15px; margin-top: 5px;">
+                        <i class="fas fa-external-link-alt"></i> Access Folder
+                    </a>
                 </div>
             </div>
 
             <!-- 5. Study Materials -->
             <div id="materials" class="section">
-                <h3 style="margin-bottom: 10px;">📂 Study Materials</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Access class notes, books, suggestions, and previous questions.</p>
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin-bottom: 5px;">📂 Study Materials</h3>
+                    <p style="color: var(--text-muted);">Access all your necessary study resources in one place.</p>
+                </div>
                 
-                <div class="materials-grid">
-                    <!-- Class Notes Box -->
-                    <div class="card glass-panel material-card">
-                        <div class="material-info">
-                            <i class="fas fa-book-open" style="color: #60a5fa;"></i>
-                            <div>
-                                <h3>Class Notes & Slides</h3>
-                                <p>Daily lecture notes and presentations.</p>
-                            </div>
-                        </div>
-                        <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn"><i class="fas fa-folder"></i> Open</a>
-                    </div>
-                    
-                    <!-- Book PDF Box -->
-                    <div class="card glass-panel material-card">
-                        <div class="material-info">
-                            <i class="fas fa-file-pdf" style="color: #f87171;"></i>
-                            <div>
-                                <h3>Book PDFs</h3>
-                                <p>Downloadable course reference books.</p>
-                            </div>
-                        </div>
-                        <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn"><i class="fas fa-folder"></i> Open</a>
-                    </div>
-
-                    <!-- Important Suggestions Box -->
-                    <div class="card glass-panel material-card">
-                        <div class="material-info">
-                            <i class="fas fa-lightbulb" style="color: #facc15;"></i>
-                            <div>
-                                <h3>Important Suggestions</h3>
-                                <p>Exam suggestions and important topics.</p>
-                            </div>
-                        </div>
-                        <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn"><i class="fas fa-folder"></i> Open</a>
-                    </div>
-
-                    <!-- Previous Exam Questions Box -->
-                    <div class="card glass-panel material-card">
-                        <div class="material-info">
-                            <i class="fas fa-file-alt" style="color: #34d399;"></i>
-                            <div>
-                                <h3>Previous Questions</h3>
-                                <p>Past semester midterm and final questions.</p>
-                            </div>
-                        </div>
-                        <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn"><i class="fas fa-folder"></i> Open</a>
-                    </div>
+                <!-- Centralized Beautiful Card -->
+                <div class="materials-center-card glass-panel">
+                    <i class="fas fa-folder-open main-icon"></i>
+                    <h3>All Resources</h3>
+                    <p>Get all class notes, book PDFs, important suggestions, and previous semester questions from our central Drive folder.</p>
+                    <button class="glass-btn" onclick="openMaterialsModal()" style="padding: 12px 30px; font-size: 15px; margin-top: 5px;">
+                        <i class="fas fa-external-link-alt"></i> Access Materials
+                    </button>
                 </div>
             </div>
 
-            <!-- 6. Notice Board Section -->
+            <!-- 6. Notice Board -->
             <div id="notices" class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="margin-bottom: 10px;">📌 Notice Board</h3>
-                </div>
+                <h3 style="margin-bottom: 10px;">📌 Notice Board</h3>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">Recent announcements and updates for 1st Semester.</p>
                 
                 <div class="class-block">
@@ -773,16 +744,14 @@
                     <h4>CR Selection Update</h4>
                     <div class="class-info">
                         <p><i class="fas fa-calendar-day"></i> <strong>Date:</strong> 15 August 2026</p>
-                        <p>MD Shariful Hoque Minhaj and Sadia Zahan Jumu have been selected as the Class Representatives for this semester.</p>
+                        <p>MD Shariful Hoque Minhaj and Sadia Zahan Jumu have been selected as CR.</p>
                     </div>
                 </div>
             </div>
 
             <!-- 7. Faculty Members -->
             <div id="faculty" class="section">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="margin-bottom: 10px;">👨‍🏫 Faculty Members</h3>
-                </div>
+                <h3 style="margin-bottom: 10px;">👨‍🏫 Faculty Members</h3>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">List of course teachers for 1st Year 1st Semester.</p>
                 
                 <div class="routine-cards">
@@ -799,31 +768,29 @@
             <div id="bloodBank" class="section">
                 <div class="controls">
                     <div class="search-box">
-                        <input type="text" id="searchBlood" onkeyup="searchTable('bloodTable', 'searchBlood', null)" placeholder="Search by Blood Group (e.g. O+, A+)...">
+                        <input type="text" id="searchBlood" onkeyup="searchTable('bloodTable', 'searchBlood', null)" placeholder="Search Blood Group...">
                         <i class="fas fa-search" style="color: #fb7185;"></i>
                     </div>
                 </div>
-
                 <h3 style="margin-bottom: 10px;">🩸 Emergency Blood Bank</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Find blood donors within our batch. (Demo data - needs update)</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Find blood donors within our batch.</p>
 
-                <div class="table-wrapper glass-panel">
+                <div class="table-wrapper">
                     <table id="bloodTable">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th style="text-align: left;">Name</th>
                                 <th>Blood Group</th>
                                 <th>Phone Number</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Added data-label for Mobile Responsiveness -->
-                            <tr><td data-label="Name">MD Shariful Hoque Minhaj</td><td data-label="Blood Group"><span class="blood-badge">B+</span></td><td data-label="Phone Number">+8801310537278</td></tr>
-                            <tr><td data-label="Name">Sadia Zahan jumu</td><td data-label="Blood Group"><span class="blood-badge">O+</span></td><td data-label="Phone Number">01826506076</td></tr>
-                            <tr><td data-label="Name">Mahfuja Parvin</td><td data-label="Blood Group"><span class="blood-badge">AB+</span></td><td data-label="Phone Number">01616403165</td></tr>
-                            <tr><td data-label="Name">Ibrahim Salman Chowdhury</td><td data-label="Blood Group"><span class="blood-badge">A+</span></td><td data-label="Phone Number">01575846451</td></tr>
-                            <tr><td data-label="Name">Md. Nihadul Haque Nihad</td><td data-label="Blood Group"><span class="blood-badge">O-</span></td><td data-label="Phone Number">01312369276</td></tr>
-                            <tr><td data-label="Name">Shahied Anggol Hussain</td><td data-label="Blood Group"><span class="blood-badge">B+</span></td><td data-label="Phone Number">01300399709</td></tr>
+                            <tr><td data-label="Name" style="text-align: left;">MD Shariful Hoque Minhaj</td><td data-label="Blood Group"><span class="blood-badge">B+</span></td><td data-label="Phone Number">+8801310537278</td></tr>
+                            <tr><td data-label="Name" style="text-align: left;">Sadia Zahan jumu</td><td data-label="Blood Group"><span class="blood-badge">O+</span></td><td data-label="Phone Number">01826506076</td></tr>
+                            <tr><td data-label="Name" style="text-align: left;">Mahfuja Parvin</td><td data-label="Blood Group"><span class="blood-badge">AB+</span></td><td data-label="Phone Number">01616403165</td></tr>
+                            <tr><td data-label="Name" style="text-align: left;">Ibrahim Salman Chowdhury</td><td data-label="Blood Group"><span class="blood-badge">A+</span></td><td data-label="Phone Number">01575846451</td></tr>
+                            <tr><td data-label="Name" style="text-align: left;">Md. Nihadul Haque Nihad</td><td data-label="Blood Group"><span class="blood-badge">O-</span></td><td data-label="Phone Number">01312369276</td></tr>
+                            <tr><td data-label="Name" style="text-align: left;">Shahied Anggol Hussain</td><td data-label="Blood Group"><span class="blood-badge">B+</span></td><td data-label="Phone Number">01300399709</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -832,7 +799,7 @@
         </div>
     </main>
 
-    <!-- The Routine Modal / Popup -->
+    <!-- Modal 1: Routine Popup -->
     <div id="routineModal" class="modal">
         <div class="modal-content glass-panel">
             <div class="modal-header">
@@ -842,6 +809,27 @@
             <div class="modal-body" id="modalClassList">
                 <!-- Class details injected via JS -->
             </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Study Materials Popup -->
+    <div id="materialsModal" class="modal">
+        <div class="modal-content glass-panel" style="text-align: center; padding: 40px 20px; position: relative;">
+            <span class="close-btn" onclick="closeMaterialsModal()" style="position: absolute; right: 20px; top: 15px;">&times;</span>
+            
+            <div style="background: rgba(52, 168, 83, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; border: 1px solid rgba(52, 168, 83, 0.3);">
+                <i class="fab fa-google-drive" style="font-size: 40px; color: #34a853;"></i>
+            </div>
+            
+            <h2 style="color: var(--primary-color); margin-bottom: 15px; font-size: 22px;">Google Drive Storage</h2>
+            
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px; line-height: 1.6; max-width: 400px; margin-left: auto; margin-right: auto;">
+                You are about to securely access the central Google Drive folder. This folder contains all the necessary resources for the Fall 2026 1st Semester.
+            </p>
+            
+            <a href="https://drive.google.com/drive/folders/1B95zymX8Z_hI79U683Xj62kt1pnmZz49?usp=drive_link" target="_blank" class="glass-btn" style="background: rgba(52, 168, 83, 0.15); border-color: rgba(52, 168, 83, 0.4); width: 100%; max-width: 250px; padding: 12px; font-size: 15px; margin: 0 auto;">
+                <i class="fas fa-cloud-download-alt"></i> Open Folder
+            </a>
         </div>
     </div>
 
@@ -861,13 +849,13 @@
             const currentTrigger = event.currentTarget;
             if(currentTrigger) {
                 currentTrigger.classList.add('active');
-                
                 if(currentTrigger.classList.contains('notice-top-btn')) {
                     const dot = currentTrigger.querySelector('.notification-dot');
                     if(dot) dot.style.display = 'none';
                 }
             }
 
+            // Close sidebar automatically on mobile
             if(window.innerWidth <= 992) {
                 document.getElementById('sidebar').classList.remove('active');
                 document.querySelector('.sidebar-overlay').classList.remove('active');
@@ -951,9 +939,8 @@
             ]
         };
 
-        // Modal Logic
-        const modal = document.getElementById("routineModal");
-
+        // Modal Logic (Routine)
+        const routineModal = document.getElementById("routineModal");
         function openRoutineModal(day) {
             document.getElementById("modalDayTitle").innerText = day + "'s Routine";
             const classes = routineData[day];
@@ -977,11 +964,20 @@
             }
 
             document.getElementById("modalClassList").innerHTML = htmlContent;
-            modal.style.display = "flex";
+            routineModal.style.display = "flex";
         }
+        function closeRoutineModal() { routineModal.style.display = "none"; }
 
-        function closeRoutineModal() { modal.style.display = "none"; }
-        window.onclick = function(event) { if (event.target == modal) { closeRoutineModal(); } }
+        // Modal Logic (Materials)
+        const materialsModal = document.getElementById("materialsModal");
+        function openMaterialsModal() { materialsModal.style.display = "flex"; }
+        function closeMaterialsModal() { materialsModal.style.display = "none"; }
+
+        // Universal click to close modals
+        window.onclick = function(event) { 
+            if (event.target == routineModal) { closeRoutineModal(); }
+            if (event.target == materialsModal) { closeMaterialsModal(); }
+        }
     </script>
 </body>
 </html>
