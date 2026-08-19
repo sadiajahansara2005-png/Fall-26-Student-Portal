@@ -342,12 +342,13 @@
         .day-card h3 { font-size: 16px; font-weight: 600; color: var(--text-main); }
         .day-card:hover i { transform: scale(1.3) translateY(-5px); color: #fff; text-shadow: 0 0 15px var(--primary-color); }
 
-        /* Material Link Cards */
+        /* Material Link Grid & Cards */
+        .materials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
         .material-card { display: flex; align-items: center; justify-content: space-between; text-align: left; padding: 20px; }
         .material-info { display: flex; align-items: center; gap: 15px; }
-        .material-info i { font-size: 30px; color: #facc15; }
-        .material-info h3 { font-size: 16px; color: var(--text-main); margin-bottom: 2px; }
-        .material-info p { font-size: 12px; color: var(--text-muted); margin: 0; }
+        .material-info i { font-size: 30px; }
+        .material-info h3 { font-size: 16px; color: var(--text-main); margin-bottom: 4px; }
+        .material-info p { font-size: 12px; color: var(--text-muted); margin: 0; line-height: 1.4; }
 
         /* Modal Styles */
         .modal {
@@ -569,6 +570,7 @@
             <div id="syllabus" class="section">
                 <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 10px;">
                     <h3 style="margin: 0;">📚 Course Outline</h3>
+                    <!-- MAIN FOLDER LINK -->
                     <a href="https://drive.google.com/drive/folders/1B95zymX8Z_hI79U683Xj62kt1pnmZz49?usp=drive_link" target="_blank" class="glass-btn" style="text-decoration: none;">
                         <i class="fas fa-folder-open" style="color: #facc15;"></i> Main Folder
                     </a>
@@ -616,7 +618,7 @@
                                 <td style="text-align: left; font-weight: 500;">Calculus</td>
                                 <td>3.0</td>
                                 <td>
-                                    <!-- Updated Calculus Link Here -->
+                                    <!-- CALCULUS LINK -->
                                     <a href="https://drive.google.com/file/d/10VVgevCb9Mf8J47KE853oG4GyVZlXJtF/view?usp=drive_link" target="_blank" class="glass-btn" style="padding: 6px 15px; font-size: 12px;">
                                         <i class="fab fa-google-drive" style="color: #34a853;"></i> View
                                     </a>
@@ -645,32 +647,58 @@
                 </div>
             </div>
 
-            <!-- 5. Study Materials -->
+            <!-- 5. Study Materials (Updated Layout) -->
             <div id="materials" class="section">
                 <h3 style="margin-bottom: 10px;">📂 Study Materials</h3>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Access class slides, notes, and reference books.</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Access class notes, books, suggestions, and previous questions.</p>
                 
-                <div class="dashboard-cards" style="flex-direction: column;">
+                <div class="materials-grid">
+                    <!-- Class Notes Box -->
                     <div class="card glass-panel material-card">
                         <div class="material-info">
-                            <i class="fas fa-folder-open"></i>
+                            <i class="fas fa-book-open" style="color: #60a5fa;"></i>
                             <div>
-                                <h3>Physics Notes & Slides</h3>
-                                <p>Google Drive Folder for Fundamentals of Physics.</p>
+                                <h3>Class Notes & Slides</h3>
+                                <p>Daily lecture notes and presentations.</p>
                             </div>
                         </div>
-                        <button class="glass-btn" onclick="alert('Link will be added soon!')"><i class="fas fa-external-link-alt"></i> Open Link</button>
+                        <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn"><i class="fas fa-folder"></i> Open</a>
                     </div>
                     
+                    <!-- Book PDF Box -->
                     <div class="card glass-panel material-card">
                         <div class="material-info">
-                            <i class="fas fa-file-pdf"></i>
+                            <i class="fas fa-file-pdf" style="color: #f87171;"></i>
                             <div>
-                                <h3>Calculus Reference Book</h3>
-                                <p>Download PDF version of the reference book.</p>
+                                <h3>Book PDFs</h3>
+                                <p>Downloadable course reference books.</p>
                             </div>
                         </div>
-                        <button class="glass-btn" onclick="alert('Link will be added soon!')"><i class="fas fa-download"></i> Download</button>
+                        <a href="https://drive.google.com/drive/folders/1DqW48nk-tCjzslP3fwTft5YE_vhHmxVp?usp=drive_link" target="_blank" class="glass-btn"><i class="fas fa-folder"></i> Open</a>
+                    </div>
+
+                    <!-- Important Suggestions Box -->
+                    <div class="card glass-panel material-card">
+                        <div class="material-info">
+                            <i class="fas fa-lightbulb" style="color: #facc15;"></i>
+                            <div>
+                                <h3>Important Suggestions</h3>
+                                <p>Exam suggestions and important topics.</p>
+                            </div>
+                        </div>
+                        <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn"><i class="fas fa-folder"></i> Open</a>
+                    </div>
+
+                    <!-- Previous Exam Questions Box -->
+                    <div class="card glass-panel material-card">
+                        <div class="material-info">
+                            <i class="fas fa-file-alt" style="color: #34d399;"></i>
+                            <div>
+                                <h3>Previous Questions</h3>
+                                <p>Past semester midterm and final questions.</p>
+                            </div>
+                        </div>
+                        <a href="YOUR_LINK_HERE" target="_blank" class="glass-btn"><i class="fas fa-folder"></i> Open</a>
                     </div>
                 </div>
             </div>
@@ -777,12 +805,10 @@
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             
-            // Allow multiple buttons (like the top right Notice button) to trigger without breaking
             const currentTrigger = event.currentTarget;
             if(currentTrigger) {
                 currentTrigger.classList.add('active');
                 
-                // If it's the notice button, hide the notification dot when clicked
                 if(currentTrigger.classList.contains('notice-top-btn')) {
                     const dot = currentTrigger.querySelector('.notification-dot');
                     if(dot) dot.style.display = 'none';
